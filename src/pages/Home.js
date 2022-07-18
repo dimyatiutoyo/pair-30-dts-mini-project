@@ -1,5 +1,4 @@
 import { Container, Paper, Typography } from "@mui/material";
-import { useEffect } from "react";
 import Carousel from "../components/Carousel";
 import ResponsiveAppBar from "../components/ResponsiveAppBar";
 
