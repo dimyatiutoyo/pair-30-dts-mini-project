@@ -1,21 +1,21 @@
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
+import { Navigation, Pagination, Scrollbar, A11y, Autoplay } from 'swiper';
 
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
-import CarouselItem from './CarouselItem';
+import TrendingItem from './TrendingItem';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
-import './Carousel.css';
+import './Trending.css';
 import { Typography } from '@mui/material';
 
-export default function Carousel() {
+export default function Trending() {
   const [trendingMovies, setTrendingMovies] = useState([]);
 
   const getTrendingMovies = async () => {
@@ -32,19 +32,19 @@ export default function Carousel() {
   }, []);
 
   return (
-    <>
-      <Typography fontSize={36} fontWeight='bold' sx={{ marginBottom: '15px' }}>
+    <div style={{ marginBottom: '40px' }}>
+      <Typography fontSize={36} fontWeight='bold' sx={{ marginBottom: '15px', marginTop: '15px' }}>
         Trending
       </Typography>
       <Swiper
 
-        modules={[Navigation, Pagination, Scrollbar, A11y]}
+        modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
         autoplay={true}
         allowTouchMove
         spaceBetween={20}
         loop
         centeredSlides
-        slidesPerView={1}
+        slidesPerView={3}
         onSlideChange={() => console.log('slide change')}
         onSwiper={(swiper) => console.log(swiper)}
         navigation
@@ -52,6 +52,19 @@ export default function Carousel() {
         style={{
           borderRadius: 10
         }}
+        breakpoints={
+          {
+            320: {
+              slidesPerView: 1,
+            },
+            576: {
+              slidesPerView: 3,
+            },
+            768: {
+              slidesPerView: 4,
+            },
+          }
+        }
       >
         {
           trendingMovies.length === 0
@@ -59,13 +72,13 @@ export default function Carousel() {
             : trendingMovies.map((movie) => {
               return (
                 <SwiperSlide key={movie.id}>
-                  <CarouselItem backdropPath={movie.backdrop_path} title={movie.original_title} overview={movie.overview} />
+                  <TrendingItem height='300px' movie={movie} showOverview={false} />
                 </SwiperSlide>
               );
             })
         }
       </Swiper>
 
-    </>
+    </div>
   );
 };

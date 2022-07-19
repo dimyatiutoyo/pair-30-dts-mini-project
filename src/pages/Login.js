@@ -11,16 +11,42 @@ import {
   Link as ButtonLink,
   Container,
 } from '@mui/material';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useState } from 'react';
 
+import { useNavigate } from "react-router-dom";
+
 import { Link } from 'react-router-dom';
+import { auth } from '../config/firebase';
 
 function Login() {
   const [visible, setVisible] = useState(false);
+  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
 
   const handleVisibility = () => {
     setVisible(!visible);
+  }
+
+  const handleLogin = async () => {
+    setLoading(true);
+    if (email === '' || password === '') {
+      setError('Please fill all fields');
+      return;
+    }
+    try {
+      const { user } = await signInWithEmailAndPassword(auth, email, password);
+      navigate('/');
+    } catch (error) {
+      console.log(error.message);
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -33,12 +59,14 @@ function Login() {
             </Typography>
             <TextField
               id="email"
+              onChange={(e) => setEmail(e.target.value)}
               fullWidth
               label="Email"
               variant="outlined"
               margin='dense'
               size='medium' />
             <TextField
+              onChange={(e) => setPassword(e.target.value)}
               id="password"
               fullWidth
               label="Password"
@@ -46,7 +74,6 @@ function Login() {
               margin='dense'
               type={visible ? 'text' : 'password'}
               size='medium'
-              sx={{ marginBottom: 3 }}
               InputProps={{
 
                 endAdornment: (
@@ -63,7 +90,17 @@ function Login() {
                 ),
               }}
             />
-            <Button fullWidth variant="contained" color="error" size='large'>Login</Button>
+            {error && <Typography color="error">{error}</Typography>}
+            <Button
+              fullWidth
+              variant="contained"
+              color="error"
+              size='large'
+              onClick={handleLogin}
+              disabled={loading}
+            >
+              Login
+            </Button>
             {/* <Typography sx={{ fontSize: 14, marginTop: 2, marginBottom: 2 }} align="center" color="text.secondary" gutterBottom>
             atau masuk dengan
           </Typography> */}

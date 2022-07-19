@@ -1,21 +1,20 @@
-import { Container, Paper, Typography } from "@mui/material";
-import Carousel from "../components/Carousel";
-import ResponsiveAppBar from "../components/ResponsiveAppBar";
+import { Box, Container } from "@mui/material";
+import Carousel from "../components/Trending";
+import Discover from "../components/Discover";
+import NowPlaying from "../components/NowPlaying";
+import Popular from "../components/Popular";
+import Layout from "./Layout";
 
 function Home() {
 
   return (
-    <>
-      <Paper square sx={{ minHeight: '100vh' }} >
-        <ResponsiveAppBar />
-        {/* <div style={{ marginLeft: '20px', marginRight: '20px' }}>
-        </div> */}
-        <Container maxWidth='lg' sx={{ marginTop: '20px' }}>
-          <Carousel />
-          <Typography sx={{ fontSize: 100 }} >asas</Typography>
-        </Container>
-      </Paper>
-    </>
+    <Layout>
+      <NowPlaying />
+      <Carousel />
+      <Box sx={{ marginTop: '20px' }} />
+      <Discover />
+      <Popular />
+    </Layout>
   );
 }
 

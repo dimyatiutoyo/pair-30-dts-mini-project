@@ -8,6 +8,10 @@ import Register from './pages/Register';
 import { createTheme, ThemeProvider } from '@mui/material';
 import Home from './pages/Home';
 import Search from './pages/Search';
+import Profil from './pages/Profil';
+import Movie from './pages/Movie';
+import NotFound from './pages/NotFound';
+import RouteGuard from './components/RouteGuard';
 
 const darkTheme = createTheme({
   palette: {
@@ -22,9 +26,24 @@ root.render(
       <ThemeProvider theme={darkTheme}>
         <Routes>
           <Route index path='/' element={<Home />} />
-          <Route index path='/login' element={<Login />} />
-          <Route path='/register' element={<Register />} />
+          <Route path='/login' element={
+            <RouteGuard loginOnly={false}>
+              <Login />
+            </RouteGuard>
+          } />
+          <Route path='/register' element={
+            <RouteGuard loginOnly={false}>
+              <Register />
+            </RouteGuard>
+          } />
+          <Route path='/profil' element={
+            <RouteGuard loginOnly>
+              <Profil />
+            </RouteGuard>
+          } />
           <Route path='/search/:title' element={<Search />} />
+          <Route path='/movie/:id' element={<Movie />} />
+          <Route path='*' element={<NotFound />} />
           {/* <Route path="/" element={<App />}>
         <Route path="teams" element={<Teams />}>
           <Route path=":teamId" element={<Team />} />
