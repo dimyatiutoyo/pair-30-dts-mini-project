@@ -90,7 +90,7 @@ const ResponsiveAppBar = () => {
   const handleLogout = async () => {
     try {
       await signOut(auth);
-      navigate('/login');
+      navigate('/', { replace: true });
     } catch (error) {
       console.log(error);
     }
@@ -222,11 +222,17 @@ const ResponsiveAppBar = () => {
             />
           </Search>
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt={user?.email} src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
+            {!user ?
+              <Link to='/login' style={{ textDecoration: 'none' }}>
+                <Button variant='contained' color='error' sx={{ textTransform: 'capitalize' }}>Login</Button>
+              </Link>
+              :
+              <Tooltip title="Open settings">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar alt={user?.email} src="/static/images/avatar/2.jpg" />
+                </IconButton>
+              </Tooltip>
+            }
             <Menu
               sx={{ mt: '45px' }}
               id="menu-appbar"
