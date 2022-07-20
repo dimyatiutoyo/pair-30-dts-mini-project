@@ -78,7 +78,7 @@ function Movie() {
               justifyContent: 'center',
               flexDirection: 'column',
             }}>
-              {movieLogo && <img style={{ display: 'block' }} src={`${process.env.REACT_APP_IMDB_IMAGE_URL}/${movieLogo}`} alt="" />}
+              {movieLogo && <img style={{ display: 'block', width: '500px' }} src={`${process.env.REACT_APP_IMDB_IMAGE_URL}/${movieLogo}`} alt="" />}
               <div style={{
                 marginTop: '30px',
                 display: 'flex',
