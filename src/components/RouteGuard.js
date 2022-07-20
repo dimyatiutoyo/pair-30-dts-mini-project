@@ -1,7 +1,6 @@
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../config/firebase";
-import { Navigate, useNavigate } from "react-router-dom";
-import { useLayoutEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 function RouteGuard({ children, loginOnly = true }) {
   const [user] = useAuthState(auth);

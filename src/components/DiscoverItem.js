@@ -1,6 +1,5 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
-import PlayArrow from '@mui/icons-material/PlayArrow';
 import { Link } from 'react-router-dom';
 
 function DiscoverItem({ movie, height }) {

@@ -1,4 +1,4 @@
-import { Box, Container, Paper } from "@mui/material";
+import { Box, Paper } from "@mui/material";
 import ResponsiveAppBar from "../components/ResponsiveAppBar";
 
 function Layout({ children, ml = '20px', mr = '20px' }) {
