@@ -42,7 +42,11 @@ root.render(
             </RouteGuard>
           } />
           <Route path='/search/:title' element={<Search />} />
-          <Route path='/movie/:id' element={<Movie />} />
+          <Route path='/movie/:id' element={
+            <RouteGuard loginOnly>
+              <Movie />
+            </RouteGuard>
+          } />
           <Route path='*' element={<NotFound />} />
           {/* <Route path="/" element={<App />}>
         <Route path="teams" element={<Teams />}>
