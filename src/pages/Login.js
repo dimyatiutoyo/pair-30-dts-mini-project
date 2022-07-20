@@ -10,6 +10,8 @@ import {
   Typography,
   Link as ButtonLink,
   Container,
+  Backdrop,
+  CircularProgress,
 } from '@mui/material';
 import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup, getAuth } from 'firebase/auth';
 import { useState } from 'react';
@@ -73,6 +75,12 @@ function Login() {
 
   return (
     <Paper sx={{ height: '100vh', paddingTop: 20 }} square>
+      <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={loading}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
       <Container maxWidth='xs'>
         <Card elevation={2} sx={{ borderRadius: 3, padding: 2 }}>
           <CardContent>
@@ -89,6 +97,11 @@ function Login() {
               size='medium' />
             <TextField
               onChange={(e) => setPassword(e.target.value)}
+              onKeyUp={(e) => {
+                if (e.key === 'Enter') {
+                  handleLogin();
+                }
+              }}
               id="password"
               fullWidth
               label="Password"

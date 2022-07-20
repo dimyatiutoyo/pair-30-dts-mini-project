@@ -2,6 +2,8 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import {
   Button, Card, CardContent, Container, IconButton, InputAdornment, Paper, TextField, Typography,
   Link as ButtonLink,
+  Backdrop,
+  CircularProgress,
 } from "@mui/material";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
@@ -47,6 +49,12 @@ export default function Register() {
   }
   return (
     <Paper sx={{ height: '100vh', paddingTop: 20 }} square>
+      <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={loading}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
       <Container maxWidth='xs'>
         <Card elevation={2} sx={{ borderRadius: 3, padding: 2 }}>
           <CardContent>
@@ -87,6 +95,11 @@ export default function Register() {
             <TextField
               onChange={(e) => setPasswordConfirm(e.target.value)}
               id="confirm_password"
+              onKeyUp={(e) => {
+                if (e.key === 'Enter') {
+                  handleSubmit(e);
+                }
+              }}
               fullWidth
               label="Confirm Password"
               variant="outlined"
