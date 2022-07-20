@@ -28,7 +28,7 @@ function Movie() {
 
   useEffect(() => {
     getMovie(params.id);
-  }, []);
+  }, [params.id]);
 
   return (
     <Layout ml="0px" mr="0px">
