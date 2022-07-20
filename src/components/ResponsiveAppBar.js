@@ -181,8 +181,8 @@ const ResponsiveAppBar = () => {
             >
               {pages.map((page) => (
                 <MenuItem key={page.title} onClick={handleCloseNavMenu}>
-                  <Link style={{ textDecoration: 'none' }} to={page.to}>
-                    <Typography sx={{ color: 'white' }} textAlign="center">{page.title}</Typography>
+                  <Link style={{ textDecoration: 'none', color: 'white' }} to={page.to} >
+                    <Typography textAlign="center">{page.title}</Typography>
                   </Link>
                 </MenuItem>
               ))}
@@ -212,8 +212,9 @@ const ResponsiveAppBar = () => {
 
               <Link key={page.title} style={{ textDecoration: 'none' }} to={page.to}>
                 <Button
+                  color="white"
                   onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: 'white', display: 'block' }}
+                  sx={{ my: 2, display: 'block' }}
                 >
                   {page.title}
                 </Button>
@@ -263,8 +264,8 @@ const ResponsiveAppBar = () => {
               <MenuItem onClick={handleCloseUserMenu}>
                 <Typography textAlign="center" onClick={() => navigate('/profil')}>{user?.email}</Typography>
               </MenuItem>
-              <MenuItem>
-                <Typography textAlign="center" onClick={handleLogout}>Logout</Typography>
+              <MenuItem onClick={handleLogout}>
+                <Typography textAlign="center">Logout</Typography>
               </MenuItem>
             </Menu>
           </Box>
