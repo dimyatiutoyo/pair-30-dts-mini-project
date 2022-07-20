@@ -16,6 +16,12 @@ import RouteGuard from './components/RouteGuard';
 const darkTheme = createTheme({
   palette: {
     mode: 'dark',
+    white: {
+      light: '#FFFFFF',
+      main: '#FFFFFF',
+      dark: '#FFFFFF',
+      contrastText: '#1E1E1E',
+    },
   },
 });
 

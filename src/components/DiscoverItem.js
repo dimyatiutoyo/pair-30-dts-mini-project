@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 function DiscoverItem({ movie, height }) {
   return (
-    <Link to={`/movie/${movie.id}`} style={{ textDecoration: 'none' }}>
+    <Link to={`/movie/${movie.id}`} style={{ textDecoration: 'none', color: 'white' }}>
       <Box sx={{
         color: 'white',
         height: height,
