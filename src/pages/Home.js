@@ -4,7 +4,6 @@ import Discover from "../components/Discover";
 import NowPlaying from "../components/NowPlaying";
 import Popular from "../components/Popular";
 import Layout from "./Layout";
-import Footer from "../components/Footer";
 
 function Home() {
   return (
@@ -14,7 +13,6 @@ function Home() {
       <Box sx={{ marginTop: "20px" }} />
       <Discover />
       <Popular />
-      <Footer />
     </Layout>
   );
 }

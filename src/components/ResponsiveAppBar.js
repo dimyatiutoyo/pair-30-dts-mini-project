@@ -16,7 +16,7 @@ import SearchIcon from '@mui/icons-material/Search';
 
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
-import { alpha, InputBase } from '@mui/material';
+import { alpha, Backdrop, CircularProgress, InputBase } from '@mui/material';
 import { useNavigate, useLocation } from "react-router-dom";
 import { signOut } from 'firebase/auth';
 import { auth } from '../config/firebase';
@@ -74,8 +74,8 @@ const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const navigate = useNavigate();
-  const location = useLocation();
   const [user] = useAuthState(auth);
+  const [loading, setLoading] = React.useState(false);
 
   const handleSearch = (event) => {
     let searchString = event.target.value;
@@ -89,11 +89,17 @@ const ResponsiveAppBar = () => {
   }
 
   const handleLogout = async () => {
+    setLoading(true);
     try {
-      await signOut(auth);
-      navigate(0);
+      setAnchorElUser(null);
+      setTimeout(async () => {
+        await signOut(auth);
+        setLoading(false);
+        navigate('/');
+      }, 2000);
     } catch (error) {
       console.log(error);
+      setLoading(false);
     }
   }
 
@@ -112,12 +118,16 @@ const ResponsiveAppBar = () => {
     setAnchorElUser(null);
   };
 
-  React.useEffect(() => {
-    console.log('ini profilnya', user);
-  });
+
 
   return (
     <AppBar position="static">
+      <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={loading}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
@@ -200,9 +210,8 @@ const ResponsiveAppBar = () => {
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
 
-              <Link style={{ textDecoration: 'none' }} to={page.to}>
+              <Link key={page.title} style={{ textDecoration: 'none' }} to={page.to}>
                 <Button
-                  key={page.title}
                   onClick={handleCloseNavMenu}
                   sx={{ my: 2, color: 'white', display: 'block' }}
                 >
@@ -230,7 +239,8 @@ const ResponsiveAppBar = () => {
               :
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt={user?.email} src="/static/images/avatar/2.jpg" />
+                  {loading ? <CircularProgress color="inherit" /> : <Avatar alt={user?.email} src="/static/images/avatar/2.jpg" />}
+
                 </IconButton>
               </Tooltip>
             }

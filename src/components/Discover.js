@@ -13,7 +13,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 function Discover() {
-  const [discoveredMovies, setDiscoveredMovies] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]);
+  const [discoveredMovies, setDiscoveredMovies] = useState([]);
 
   const getDiscoveredMovies = async () => {
     const response = await axios.get(process.env.REACT_APP_IMDB_URL + '/discover/movie', {
@@ -60,8 +60,8 @@ function Discover() {
             },
           }
         }
-        onSlideChange={() => console.log('slide change')}
-        onSwiper={(swiper) => console.log(swiper)}
+        onSlideChange={() => { }}
+        onSwiper={(swiper) => { }}
         navigation
         pagination={{ clickable: true }}
         style={{
@@ -73,7 +73,7 @@ function Discover() {
             ? console.log('loading')
             : discoveredMovies.map((movie) => {
               return (
-                <SwiperSlide key={movie.id}>
+                <SwiperSlide key={movie.id + 'test'}>
                   <DiscoverItem movie={movie} height='350px' />
                 </SwiperSlide>
               );

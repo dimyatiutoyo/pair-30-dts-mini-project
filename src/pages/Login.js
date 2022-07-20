@@ -1,4 +1,4 @@
-import { VisibilityOff, Visibility } from '@mui/icons-material';
+import { VisibilityOff, Visibility, Google } from '@mui/icons-material';
 import {
   Button,
   Card,
@@ -11,7 +11,7 @@ import {
   Link as ButtonLink,
   Container,
 } from '@mui/material';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup, getAuth } from 'firebase/auth';
 import { useState } from 'react';
 
 import { useNavigate } from "react-router-dom";
@@ -47,6 +47,28 @@ function Login() {
     } finally {
       setLoading(false);
     }
+  }
+
+  const handleLoginWithGoogle = async () => {
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(auth, provider).then(result => {
+      const credential = GoogleAuthProvider.credentialFromResult(result);
+      const token = credential.accessToken;
+      const user = result.user;
+
+      navigate('/');
+    }).catch(error => {
+      console.log(error);
+      // Handle Errors here.
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      // The email of the user's account used.
+      const email = error.customData.email;
+      // The AuthCredential type that was used.
+      const credential = GoogleAuthProvider.credentialFromError(error);
+
+      setError(errorMessage);
+    });
   }
 
   return (
@@ -92,6 +114,7 @@ function Login() {
             />
             {error && <Typography color="error">{error}</Typography>}
             <Button
+              sx={{ width: '100%', marginTop: 3 }}
               fullWidth
               variant="contained"
               color="error"
@@ -101,10 +124,20 @@ function Login() {
             >
               Login
             </Button>
-            {/* <Typography sx={{ fontSize: 14, marginTop: 2, marginBottom: 2 }} align="center" color="text.secondary" gutterBottom>
-            atau masuk dengan
-          </Typography> */}
-            {/* <Button fullWidth variant="outlined" color="primary" size='large' startIcon={<Google />} sx={{ textTransform: 'capitalize' }}>Google</Button> */}
+            <Typography sx={{ fontSize: 14, marginTop: 2, marginBottom: 2 }} align="center" color="text.secondary" gutterBottom>
+              atau masuk dengan
+            </Typography>
+            <Button
+              onClick={handleLoginWithGoogle}
+              fullWidth
+              variant="outlined"
+              color="primary"
+              size='large'
+              startIcon={<Google />}
+              sx={{ textTransform: 'capitalize' }}
+            >
+              Google
+            </Button>
 
             <Typography sx={{ fontSize: 14, marginTop: 2, marginBottom: 2 }} align="center" color="text.secondary" gutterBottom>
               Belum punya akun? <Link to='/register'><ButtonLink>Buat akun</ButtonLink></Link>

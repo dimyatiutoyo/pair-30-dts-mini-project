@@ -1,4 +1,5 @@
 import { Box, Paper } from "@mui/material";
+import Footer from "../components/Footer";
 import ResponsiveAppBar from "../components/ResponsiveAppBar";
 
 function Layout({ children, ml = '20px', mr = '20px' }) {
@@ -13,6 +14,7 @@ function Layout({ children, ml = '20px', mr = '20px' }) {
         }}>
 
           {children}
+          <Footer />
         </Box>
       </Paper>
     </>

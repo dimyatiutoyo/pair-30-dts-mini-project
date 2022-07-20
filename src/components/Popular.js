@@ -45,8 +45,8 @@ export default function Popular() {
         loop
         centeredSlides
         slidesPerView={2}
-        onSlideChange={() => console.log('slide change')}
-        onSwiper={(swiper) => console.log(swiper)}
+        onSlideChange={() => { }}
+        onSwiper={(swiper) => { }}
         navigation
         pagination={{ clickable: true }}
         style={{

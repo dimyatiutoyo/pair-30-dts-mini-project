@@ -45,8 +45,8 @@ export default function Trending() {
         loop
         centeredSlides
         slidesPerView={3}
-        onSlideChange={() => console.log('slide change')}
-        onSwiper={(swiper) => console.log(swiper)}
+        onSlideChange={() => { }}
+        onSwiper={(swiper) => { }}
         navigation
         pagination={{ clickable: true }}
         style={{
