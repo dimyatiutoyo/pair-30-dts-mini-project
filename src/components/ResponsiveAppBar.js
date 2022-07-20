@@ -17,7 +17,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { alpha, InputBase } from '@mui/material';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { signOut } from 'firebase/auth';
 import { auth } from '../config/firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -74,6 +74,7 @@ const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const navigate = useNavigate();
+  const location = useLocation();
   const [user] = useAuthState(auth);
 
   const handleSearch = (event) => {
@@ -90,7 +91,7 @@ const ResponsiveAppBar = () => {
   const handleLogout = async () => {
     try {
       await signOut(auth);
-      navigate('/', { replace: true });
+      navigate(0);
     } catch (error) {
       console.log(error);
     }
@@ -252,7 +253,7 @@ const ResponsiveAppBar = () => {
               <MenuItem onClick={handleCloseUserMenu}>
                 <Typography textAlign="center" onClick={() => navigate('/profil')}>{user?.email}</Typography>
               </MenuItem>
-              <MenuItem onClick={handleCloseUserMenu}>
+              <MenuItem>
                 <Typography textAlign="center" onClick={handleLogout}>Logout</Typography>
               </MenuItem>
             </Menu>
